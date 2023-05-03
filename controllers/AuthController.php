@@ -7,7 +7,7 @@ use app\models\User;
 use app\core\Request;
 
 use app\core\Controller;
-
+use app\core\Response;
 use app\models\LoginForm;
 
 class AuthController extends Controller {
@@ -23,7 +23,7 @@ class AuthController extends Controller {
     $this->setLayout('auth');
     return $this->render("login", [
       "model" => $loginForm
-    ]);
+    ]); // ~ $model = Login object (variable variable: takes content as a new variable name)
   }
 
   /**
@@ -47,7 +47,13 @@ class AuthController extends Controller {
 
     return $this->render("register", [
         "model" => $user
-    ]);
+    ]); // $model = User object
   } 
+
+
+  public function logout(Request $request) {
+    Application::$app->logout();
+    Application::$app->response->redirect("/");
+  }
 };
 ?>
