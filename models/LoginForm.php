@@ -24,23 +24,27 @@ class LoginForm extends \app\core\Model {
    * if found => check authenticated
    */
   public function login() {
-    $user = User::findOne(['email' => $this->email]);
-
+    $user = (new User())->findOne(['email' => $this->email]);
+    
     if (!$user) {
       $this->addError('email', 'The user with this email does not exist');
       return false;
     }
 
-    if (password_verify($this->password, $user->password)) {
+    if (!password_verify($this->password, $user->getPassword())) {
       $this->addError('password', 'The password is incorrect');
       return false;
     }
 
-    var_dump($user);
+    Application::$app->login($user);
 
-    // Application::$app->login($user);
+  }
 
-
+  public function labels() : array {
+    return [
+      'email' => 'Email',
+      'password' => 'Password'
+    ];
   }
 }
 ?>
