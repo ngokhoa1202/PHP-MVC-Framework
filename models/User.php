@@ -1,10 +1,10 @@
 <?php 
 namespace app\models;
 
-use app\core\Model;
+use app\core\UserModel;
 
 
-class User extends \app\core\DBModel {
+class User extends UserModel {
   const STATUS_INACTIVE = 0;
   const STATUS_ACTIVE = 1;
   const STATUS_DELETED = 2;
@@ -97,6 +97,13 @@ class User extends \app\core\DBModel {
     ];
   }
 
+  public function primaryKey(): string {
+    return 'id';
+  }
+
+  public function getDisplayName(): string {
+    return $this->firstName . ' ' . $this->secondName;
+  }
 
 };
 ?>
