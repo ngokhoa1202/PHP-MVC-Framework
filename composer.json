@@ -1,0 +1,17 @@
+{
+    "name": "dell/mvc-framework-php",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Khoa Ngo",
+            "email": "khoa.ngo1k59@hcmut.edu.vn"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
