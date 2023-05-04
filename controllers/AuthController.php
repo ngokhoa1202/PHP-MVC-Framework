@@ -9,13 +9,20 @@ use app\core\Request;
 use app\core\Controller;
 use app\core\Response;
 use app\models\LoginForm;
+use app\core\middlewares\AuthMiddleware;
 
 class AuthController extends Controller {
+
+  public function __construct() {
+    $this->registerMiddleware(new AuthMiddleware(['profile']));
+  }
+
   public function login(Request $request) {
     $loginForm = new LoginForm();
     if ($request->isPostMethod()) {
       $loginForm->loadData($request->getBody());
       if ($loginForm->validate() && $loginForm->login()) {
+        echo "Login successfully";
         Application::$app->response->redirect("/");
         return;
       }
@@ -54,6 +61,10 @@ class AuthController extends Controller {
   public function logout(Request $request) {
     Application::$app->logout();
     Application::$app->response->redirect("/");
+  }
+
+  public function profile() {
+    return $this->render('profile');
   }
 };
 ?>
