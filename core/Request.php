@@ -6,7 +6,11 @@ class Request {
 
   }
 
-  public function getPath() {
+  /**
+   * @return Server[Request_URI] before ? symbol
+   */
+
+  public function getPath() : string {
     $path = $_SERVER["REQUEST_URI"] ?? "/";
     $position = strpos($path, "?");
     if ($position === false) {
@@ -15,6 +19,10 @@ class Request {
     
     return substr($path, 0, $position);
   }
+
+  /**
+   * @return Server[Request_Method] in lower case
+   */
 
   public function getMethod() {
     return strtolower($_SERVER["REQUEST_METHOD"]);
